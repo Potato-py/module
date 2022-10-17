@@ -1,39 +1,22 @@
 ﻿#!/usr/bin/python
 # -*- coding:utf-8
-
-#引用对象需添加以下code：
-#------------------------appendPath------------------------
-#自定义目录使用sys.path.append(sys.path[0]+r'../common')
-#上层目录使用sys.path.append('..')
-#当前目录下可忽略添加环境地址
-#--------------------------import--------------------------
-#from common.font import *
-#-------防止高频调用导致堵塞，可对某些字段进行存储---------
-#Processing=str(Processing())
-#Information=str(Information())
-#Detected=str(Detected())
-#Result=str(Result())
-#Error=str(Error())
-
 import os
 import sys
+import string
 
 try:
     import terminal
 except:
     print('检测出您未安装terminal模块，将替您安装此模块，请稍候……')
-    os.system('pip3 install terminal')
+    os.system('pip install terminal')
     import terminal
 try:
     import console
 except:
     print('检测出您未安装console模块，将替您安装此模块，请稍候……')
-    os.system('pip3 install console')
+    os.system('pip install console')
     import console
 
-#
-# color方法
-#
 def red(text):
     return terminal.bold(terminal.red(text))
 
@@ -78,12 +61,12 @@ def Input(*num):
     return terminal.bold(terminal.yellow(data))
 
 #实现回车换行，而不是结束
-def Input_lines():
+def Input_lines(showHead=True):
     result = ""
     num = 0
     while True:
         num = num + 1
-        data = str(input(Input(num)))
+        data = str(input(Input(num))) if showHead else str(input())
         if data == '':
             if(num==1):
                 print(Error()+'首行不能为空，请重新输入！\n')
@@ -92,7 +75,6 @@ def Input_lines():
                 continue
             return result
         result+= data+"\n"#换行
-
 
 #格式化输出
 def printF(strData, lenMax, placeHolder=" ", justify="center"):
@@ -181,33 +163,3 @@ def printT(dataList,type="body",getStr=False,tableStyle="red",fontStyle=""):
         print('    printT( [8,13,13,10] ,"middle")')
         print('    printT( [["ip",8],["域名",13,"left"],["权重",13],["编号",10]])')
         print('    printT( [8,13,13,10] ,"bottom")\033[0m')
-
-#
-# logo打印
-#
-def logo_1():
-    os.system("cls") if ('win' in sys.platform and 'darwin' not in sys.platform) else os.system("clear")
-    print ('')
-    print ('''\033[1m
-
-############################################################################################
-##                           \033[0m'''+'''\033[1;31m    ___       ___       ___       ___       ___       ___    \033[0m'''+'''\033[1m##
-##  --ScriptName: potato     \033[0m'''+'''\033[1;31m   /\  \     /\  \     /\  \     /\  \     /\  \     /\  \   \033[0m'''+'''\033[1m##
-##  --Author    : LiJunYi    \033[0m'''+'''\033[1;31m  /::\  \   /::\  \    \:\  \   /::\  \    \:\  \   /::\  \  \033[0m'''+'''\033[1m##
-##  --QQ        : 2438325121 \033[0m'''+'''\033[1;34m /:\033[0m'''+'''\033[1;31m:\:\__\ \033[0m'''+'''\033[1;34m/:\033[0m'''+'''\033[1;31m/\:\__\   /::\__\ \033[0m'''+'''\033[1;34m/:\033[0m'''+'''\033[1;31m:\:\__\   /::\__\ \033[0m'''+'''\033[1;34m/:\033[0m'''+'''\033[1;31m/\:\__\ \033[0m'''+'''\033[1m##
-##  --Type      : Penetration\033[0m'''+'''\033[1;34m \/\\\033[0m'''+'''\033[1;31m::/  / \033[0m'''+'''\033[1;34m\:\\\033[0m'''+'''\033[1;31m/:/  /  \033[0m'''+'''\033[1;34m/:\033[0m'''+'''\033[1;31m/\/__/ \033[0m'''+'''\033[1;34m\/\\\033[0m'''+'''\033[1;31m::/  /  \033[0m'''+'''\033[1;34m/:\033[0m'''+'''\033[1;31m/\/__/ \033[0m'''+'''\033[1;34m\:\\\033[0m'''+'''\033[1;31m/:/  / \033[0m'''+'''\033[1m##
-##  --Version   : 0.2.4      \033[0m'''+'''\033[1;34m    \\\033[0m'''+'''\033[1;31m/__/   \033[0m'''+'''\033[1;34m\::\033[0m'''+'''\033[1;31m/  /   \033[0m'''+'''\033[1;34m\/__/      /:\033[0m'''+'''\033[1;31m/  /   \033[0m'''+'''\033[1;34m\/__/     \::\033[0m'''+'''\033[1;31m/  /  \033[0m'''+'''\033[1m##
-##                           \033[0m'''+'''\033[1;34m             \/__/               \/__/               \/__/   \033[0m'''+'''\033[1m##
-############################################################################################
-
-\033[0m''')
-
-def logo_2():
-    print(red('''
-                     __        __      
-        ____  ____ _/ /_____ _/ /_____ 
-       / __ \/ __ `/ __/ __ `/ __/ __ \ 
-      / /_/ / /_/ / /_/ /_/ / /_/ /_/ / ''')+blue(''' 
-     / .___/\____/\__/\__,_/\__/\____/ 
-    /_/  
-'''))
